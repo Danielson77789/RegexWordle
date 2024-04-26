@@ -8,12 +8,6 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
-const User = require('./user')(sequelize, Sequelize.DataTypes);
-const Auth = require('./auth')(sequelize, Sequelize.DataTypes);
-const Score = require('./score')(sequelize, Sequelize.DataTypes);
-const GameWord = require('./gameword')(sequelize, Sequelize.DataTypes);
-const Game = require('./game')(sequelize, Sequelize.DataTypes);
-
 
 let sequelize;
 if (config.use_env_variable) {
@@ -22,12 +16,33 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
-Auth.hasOne(User, {foreignKey: 'userId'});
-User.belongsTo(Auth, {foreignKey: 'userId'});
+const User = require('./user')(sequelize, Sequelize.DataTypes);
+const Auth = require('./auth')(sequelize, Sequelize.DataTypes);
+const Score = require('./score')(sequelize, Sequelize.DataTypes);
+const GameWord = require('./gameword')(sequelize, Sequelize.DataTypes);
+const Game = require('./game')(sequelize, Sequelize.DataTypes);
+const Word = require('./word')(sequelize, Sequelize.DataTypes);
 
-Score.hasMany(User, {foreignKey: 'userId'})
+// User and Auth
+// User.hasOne(Auth, {foreignKey: 'userId', as: 'auth'});
+// Auth.belongsTo(User, {foreignKey: 'userId', as: 'user'});
 
-GameWord.hasMany(Game, {foreignKey: 'gameId'})
+// User and Score
+User.hasMany(Score, {foreignKey: 'userId'});
+Score.belongsTo(User, {foreignKey: 'userId'});
+
+// Game and Score
+Game.hasMany(Score, {foreignKey: 'gameId'});
+Score.belongsTo(Game, {foreignKey: 'gameId'});
+
+// GameWord and Game: One-to-Many
+GameWord.hasMany(Game, { foreignKey: 'gameWordId' });
+Game.belongsTo(GameWord, { foreignKey: 'gameWordId' });
+
+// Many-to-Many Relationship between Game and Word via GameWord
+// Assuming 'GameWord' is a junction table:
+// Game.belongsToMany(Word, { through: GameWord, foreignKey: 'gameId', otherKey: 'wordId'});
+// Word.belongsToMany(Game, { through: GameWord, foreignKey: 'wordId', otherKey: 'gameId'});
 
 fs
   .readdirSync(__dirname)

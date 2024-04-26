@@ -2,6 +2,9 @@
 const {
   Model
 } = require('sequelize');
+
+const Auth = require('./auth');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -11,6 +14,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      const Auth = models.Auth;
+      this.hasOne(Auth, {foreignKey: 'userId', as: 'auth'});
     }
   }
   User.init({

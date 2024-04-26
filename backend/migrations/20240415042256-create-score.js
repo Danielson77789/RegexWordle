@@ -10,10 +10,22 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: true,
+        references: {
+          model: 'Users',
+          key: 'id'
+        }
       },
       gameId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: true,
+        references: {
+          model: 'Games',
+          key: 'id'
+        }
       },
       scoreValue: {
         type: Sequelize.INTEGER

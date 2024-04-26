@@ -2,6 +2,9 @@
 const {
   Model
 } = require('sequelize');
+
+// const User = require('./user'); // Adjust the path as needed
+
 module.exports = (sequelize, DataTypes) => {
   class Auth extends Model {
     /**
@@ -10,14 +13,13 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      const User = models.User;
+      this.belongsTo(User, {foreignKey: 'userId', as: 'user'});
     }
   }
   Auth.init({
     username: DataTypes.STRING,
-    email: DataTypes.STRING,
-    name: DataTypes.STRING,
-    isActive: DataTypes.BOOLEAN,
+    password: DataTypes.STRING,
     userId: DataTypes.INTEGER
   }, {
     sequelize,
