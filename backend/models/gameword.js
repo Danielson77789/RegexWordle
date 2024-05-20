@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      const GameWord = models.GameWord;
+      this.belongsTo(GameWord, { foreignKey: 'gameWordId', as: 'gameWord'});
     }
   }
   GameWord.init({

@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      const Game = models.Game;
+      this.hasMany(Game, { foreignKey: 'gameWordId', as: 'gameWord' });
     }
   }
   Game.init({
