@@ -5,11 +5,32 @@ const { User, Auth, sequelize } = require('../models');
 
 const saltRounds = 10;
 
-router.post('/users', async (req, res) => {
-    const {username, email, name, isActive, password} = req.body;
-    const salt = await bcrypt.genSalt(saltRounds);
-    const hash = await bcrypt.hash(password, salt);
+router.post('/new-user', async (req, res) => {
+  const {username, email, name, isActive, password} = req.body;
 
+  const salt = await bcrypt.genSalt(saltRounds);
+  const hash = await bcrypt.hash(password, salt);
+  let usernameCheck;
+  let emailCheck;
+
+  const t = await sequelize.transaction();
+
+  usernameCheck = await User.findOne({
+    where: { username: username },
+    transaction: t
+  });
+
+  emailCheck = await User.findOne({
+    where: { email: email },
+    transaction: t
+  });
+
+
+  if (usernameCheck) {
+    res.status(409).json({ error: "Username already in use." });
+  } else if (emailCheck) {
+    res.status(409).json({ error: "Email already linked to account." });
+  } else {
     return sequelize.transaction(async (t) => { 
       const user = await User.create({
         username: username,
@@ -30,8 +51,9 @@ router.post('/users', async (req, res) => {
       res.json(user); 
     })
     .catch(error => {
-      res.status(400).json({ error: error.message }); 
+      res.status(500).json({ error: error.message }); 
     });
+  }
 });
 
 router.get('/users', async (req, res) => {
@@ -41,8 +63,8 @@ router.get('/users', async (req, res) => {
   try {
     const users = await Auth.findAll({
         include: [{
-          model: User, // Ensure Auth model is imported and available
-          as: 'user'  // Optional: Use if you set an alias in the association
+          model: User,
+          as: 'user'   
         }],
          transaction: t
       });
