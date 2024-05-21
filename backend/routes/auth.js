@@ -28,7 +28,7 @@ router.post('/login', async (req, res) => {
     const match = await bcrypt.compare(password, auth.password);
     if (!match) {
       await t.rollback();
-      return res.status(401).json({ error: "Password does not match" });
+      return res.status(404).json({ error: "Password does not match" });
     }
 
     await t.commit();

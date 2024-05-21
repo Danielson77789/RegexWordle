@@ -1,0 +1,27 @@
+#base-login-card {
+    background-color: grey;
+    width: 400px;
+    height: 300px;
+    border-radius: 5px;
+    border: 2px solid greenyellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#username-input, #password-input {
+    display: block;
+}
+
+#login-button {
+    margin-top: 30px;
+    padding: 10px;
+    width: 30%;
+    
+}
+
+#error {
+    color: red;
+    margin: 5px;
+}
