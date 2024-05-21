@@ -3,23 +3,49 @@
     width: 400px;
     height: 300px;
     border-radius: 5px;
-    border: 2px solid greenyellow;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
+#login-card-title {
+    margin: 5px;
+}
+
 #username-input, #password-input {
     display: block;
+    font-size: 25px;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+}
+
+#username-label, #password-label {
+    font-size: 20px;
 }
 
 #login-button {
     margin-top: 30px;
     padding: 10px;
-    width: 30%;
-    
+    width: 80%;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
+
+#login-button:hover {
+    background-color: darkgray;
+  }
+
+#login-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
 
 #error {
     color: red;

@@ -1,8 +1,10 @@
-import LoginCard from "../components/Login-Card";
+import NavBar from "../components/NavBar";
+import '../css/nav-bar.css'
 
 function LoginPage() {
     return(
-        <div>
+        <div id="game-page-body">
+            <NavBar id="nav-bar"></NavBar>
             <h1>
                 Logged in
             </h1>

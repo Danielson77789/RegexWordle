@@ -19,6 +19,8 @@ function LoginCard() {
     }
     axios.post('http://127.0.0.1:3000/auth/login', loginData).then((responce) => {
       if (responce.data) {
+        // console.log(responce.data)
+        document.cookie = `token=${responce.data}; path=/`;
         navigate('game-page')
       }
     }).catch((err) => {
@@ -26,32 +28,37 @@ function LoginCard() {
     })
   }
 
-  return(<div id='base-login-card'>
+  return(
+  <div id='base-login-card'>
 
-    <h2>Login form</h2>
+  <h1 id='login-card-title'>Login form</h1>
 
-    <form onSubmit={handleLogin}>
-      <div id='input-field-container'>
-        <label htmlFor="username">Username:</label>
-        <input
-          type="text"
-          id="username-input"
-          name="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password-input"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <p id='error'>{error}</p>
+  <form onSubmit={handleLogin}>
+    <div id='input-field-container'>
+      <label htmlFor="username" id="username-label">Username:</label>
+      <input
+        type="text"
+        id="username-input"
+        name="username"
+        value={username}
+        placeholder='Username'
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <label htmlFor="password" id="password-label">Password:</label>
+      <input
+        type="password"
+        id="password-input"
+        name="password"
+        placeholder='Password'
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+    </div>
+    <p id='error'>{error}</p>
+    <div id='login-button-container'>
       <button type='submit' id='login-button'>Login</button>
-    </form>
+    </div>  
+  </form>
 
   </div>
   );
