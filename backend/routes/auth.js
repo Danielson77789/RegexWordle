@@ -41,6 +41,8 @@ router.post('/login', async (req, res) => {
         userId: auth.user.id,
     }
     const token = jwt.sign(data, jwtSecretKey, {expiresIn});
+    res.set('Authorization', `Bearer ${token}`);
+    res.set('Access-Control-Expose-Headers', `Authorization`);
     res.json(token);  // Assuming you want to return the user details
   } catch (error) {
     if (t) await t.rollback();

@@ -1,8 +1,8 @@
 #base-login-card {
-    background-color: grey;
+    border: rgba(0, 255, 0, 1) solid;
+    background-color: black;
     width: 400px;
-    height: 300px;
-    border-radius: 5px;
+    height: 350px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,30 +14,37 @@
 }
 
 #username-input, #password-input {
+    border: rgba(0, 255, 0, 1) solid 2px;
+    color: rgba(0, 255, 0, 1);
+    background-color: black;
     display: block;
     font-size: 25px;
-    border-radius: 5px;
-    border: none;
     padding: 10px;
+    outline: none;
+    font-family: "Courier New", Courier, monospace;
 }
 
 #username-label, #password-label {
     font-size: 20px;
+    font-family: "Courier New", Courier, monospace;
 }
 
 #login-button {
-    margin-top: 30px;
+    border: rgba(0, 255, 0, 1) solid 2px;
+    color: rgba(0, 255, 0, 1);
+    margin: 10px;
     padding: 10px;
     width: 80%;
+    font-size: 20px;
     background-color: black;
-    border: none;
-    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-family: "Courier New", Courier, monospace;
 }
 
 #login-button:hover {
-    background-color: darkgray;
+    background-color: rgba(0, 255, 0, 1);
+    color: black;
   }
 
 #login-button-container {
@@ -50,4 +57,10 @@
 #error {
     color: red;
     margin: 5px;
+}
+
+#error-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 5px;
 }

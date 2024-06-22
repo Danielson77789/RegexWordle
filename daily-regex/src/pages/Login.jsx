@@ -75,7 +75,7 @@ function LoginPage() {
     <>
     <canvas id="background-canvas"></canvas>
     <div id="body-div">
-      <h1 id="login-title">Daily Wordle</h1>
+      <h1 id="login-title">Daily Regex</h1>
       <LoginCard/>
     </div>
     

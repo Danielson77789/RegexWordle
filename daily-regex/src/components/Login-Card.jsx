@@ -11,16 +11,14 @@ function LoginCard() {
   
   const handleLogin = (e) => {
     e.preventDefault()
-    console.log(password)
-    console.log(username)
     const loginData = {
       username: username,
       password: password
     }
-    axios.post('http://127.0.0.1:3000/auth/login', loginData).then((responce) => {
-      if (responce.data) {
-        // console.log(responce.data)
-        document.cookie = `token=${responce.data}; path=/`;
+    axios.post('http://127.0.0.1:3000/auth/login', loginData).then((response) => {
+      if (response.data) {
+        const token = response.headers.get('Authorization').split(' ')[1]        
+        document.cookie = `token=${token}; path=/`;
         navigate('game-page')
       }
     }).catch((err) => {
@@ -54,7 +52,9 @@ function LoginCard() {
         onChange={(e) => setPassword(e.target.value)}
       />
     </div>
-    <p id='error'>{error}</p>
+    <div id='error-container'>
+      <p id='error'>{error}</p>
+    </div>
     <div id='login-button-container'>
       <button type='submit' id='login-button'>Login</button>
     </div>  
